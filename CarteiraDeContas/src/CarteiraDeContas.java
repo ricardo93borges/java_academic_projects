@@ -5,12 +5,12 @@ public class CarteiraDeContas {
 	private String titular;
 	private double saldo;
 	//private int[] contas = new int[10];
-    ArrayList<Double> contas = new ArrayList();
+    //Conta[] contas = new Conta[10];
+	ArrayList<Conta> contas = new ArrayList(); 
 	private int numContas;
 	
 	public CarteiraDeContas(String titular){
 		this.titular = titular;
-		this.contas = new ArrayList();
 	}
 	
 	public String getTitular() {
@@ -20,7 +20,12 @@ public class CarteiraDeContas {
 		this.titular = titular;
 	}
 	public double getSaldo(int cconta) {
-		return saldo;
+		for(int i = 0; i < this.contas.size(); i++){
+			if(this.contas.get(i).getNumero() == cconta){
+				return this.contas.get(i).getSaldo();
+			}
+		}
+		return 0.0;
 	}
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
@@ -34,39 +39,75 @@ public class CarteiraDeContas {
 	}
 	
 	public void addConta(int cconta){
-		//int i = this.contas.length;
-		this.contas.add(cconta, 0.0);
-		this.numContas++;
+		if(this.numContas < 10){
+			Conta c = new Conta(cconta, 0.0);
+			this.contas.add(c);
+			this.numContas++;
+		}
 	}
 	
 	public void addConta(int cconta, double saldoinicial){
-		//int i = this.contas.length;
-		this.contas.add(cconta, saldoinicial);
-		this.numContas++;
+		if(this.numContas < 10){
+			Conta c = new Conta(cconta, saldoinicial);
+			this.contas.add(c);
+			this.numContas++;
+		}
 	}
 	
 	public double getSaldoTotal(){
-		return this.saldo;
+		double saldoTotal = 0.0;
+		for(int i = 0; i < this.contas.size(); i++){
+			saldoTotal += this.contas.get(i).getSaldo();
+		}
+		return saldoTotal;
 	}
 	
 	public void depositar(int cconta, double valor){
-		this.saldo += valor;
+		for(int i = 0; i < this.contas.size(); i++){
+			if(this.contas.get(i).getNumero() == cconta){
+				double s = this.contas.get(i).getSaldo() + valor;
+				this.contas.get(i).setSaldo(s);
+			}
+		}
 	}
 	
 	public double retirar(int cconta){
-		double retorno = this.saldo;
-		this.saldo = 0;
-		return retorno;
+		for(int i = 0; i < this.contas.size(); i++){
+			if(this.contas.get(i).getNumero() == cconta){
+				this.contas.get(i).setSaldo(0.0);
+				return this.contas.get(i).getSaldo();
+			}
+		}
+		return 0.0;
 	}
 	
 	public double retirar(int cconta, double valor){
-		this.saldo -= valor;
-		return valor;
+		for(int i = 0; i < this.contas.size(); i++){
+			if(this.contas.get(i).getNumero() == cconta){
+				double s = this.contas.get(i).getSaldo() - valor;
+				this.contas.get(i).setSaldo(s);
+				return valor;
+			}
+		}
+		return 0.0;
 	}
 	
 	public boolean transferir(int deConta, int paraConta, double valor){
+		Conta c1 = new Conta();
+		Conta c2 = new Conta();
+		for(int i = 0; i < this.contas.size(); i++){
+			if(this.contas.get(i).getNumero() == deConta){
+				c1 = this.contas.get(i);
+			}else if(this.contas.get(i).getNumero() == paraConta){
+				c2 = this.contas.get(i);
+			}
+		}
+		
+		double c1Saldo = c1.getSaldo() - valor;
+		double c2Saldo = c2.getSaldo() + valor;
+		c1.setSaldo(c1Saldo);
+		c2.setSaldo(c2Saldo);
+		
 		return true;
 	}
 }
-
-

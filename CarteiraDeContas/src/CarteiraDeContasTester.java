@@ -17,11 +17,11 @@ public class CarteiraDeContasTester {
 		carteira1.addConta(1002);
 		carteira1.addConta(1003, 100.0);
 		
-		
+
 		System.out.println("Numero de contas esperado: 3");
 		System.out.println("Numero de contas inserido: " +  carteira1.getNumContas());
 		System.out.println();
-
+		
 		System.out.println("Testando deposito...");
 		carteira1.depositar(1002, 10000.0);
 		carteira1.depositar(1001, 1000.0);
@@ -64,8 +64,6 @@ public class CarteiraDeContasTester {
 		System.out.println("Testando saldo total...");
 		System.out.println("Saldo total esperado: 1000.0");
 		System.out.println("Saldo total: " +  carteira1.getSaldoTotal());
-		
-
 		
 	}
 
