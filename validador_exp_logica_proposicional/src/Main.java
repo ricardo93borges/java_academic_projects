@@ -5,15 +5,15 @@ public class Main{
 	public static void main(String args[]){
 		Scanner s = new Scanner(System.in);
 		System.out.println("Informe uma expressão lógica:");
-		String e = s.nextLine();
-		String exp = "(p&q)>>(p|q)&(p&q)";
+		String exp = s.nextLine();
+		//String exp = "(p&q)>>(p|q)&(p&q)";
 		
 		Validador v = new Validador();
 		
 		if(v.validar(exp)){
-			System.out.println("Expressão válida.");
+			System.out.println("Fórmula proposicional bem formada.");
 		}else{
-			System.out.println("Expressão inválida.");
+			System.out.println("Isto não é uma formula.");
 		}		
 	}
 }
