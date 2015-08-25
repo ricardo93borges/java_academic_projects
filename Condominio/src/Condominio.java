@@ -26,7 +26,6 @@ public class Condominio {
 	
 	public Lote getLote(int numero){
 		for(int i=0; i < this.qntLotes; i++){
-			System.out.println(i);
 			if(this.lotes[i].getNumero() == numero){
 				return this.lotes[i];
 			}
@@ -39,7 +38,7 @@ public class Condominio {
 			if(this.lotes[i].getNumero() == numero){
 				//this.lotes[i] = null;
 				
-				for(int j=i; j < this.numMaxLotes; j++){
+				for(int j=i; j < this.qntLotes; j++){
 					this.lotes[j] = this.lotes[j+1];
 				}
 				this.qntLotes--;
@@ -51,7 +50,7 @@ public class Condominio {
 	
 	public double getAreaTotal(){
 		double area = 0.0;
-		for(int i=0; i < this.numMaxLotes; i++){
+		for(int i=0; i < this.qntLotes; i++){
 			area += this.lotes[i].getArea();
 		}
 		return area;
@@ -59,7 +58,7 @@ public class Condominio {
 	
 	public double getPerimetroTotal(){
 		double perimetro = 0.0;
-		for(int i=0; i < this.numMaxLotes; i++){
+		for(int i=0; i < this.qntLotes; i++){
 			perimetro += this.lotes[i].getPerimetro();
 		}
 		return perimetro;
