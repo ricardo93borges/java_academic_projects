@@ -10,31 +10,19 @@ public class Novela extends AtracaoAbstrata{
 	
 	public Novela(String titulo, int duracao, String horario) {
 		super(titulo, duracao, horario);
-		titulo = titulo;
-		duracao = duracao;
-		horario = horario;
-	}
-
-	@Override
-	public int getDuracaoMinutos() {
-		return duracao;
-	}
-	
-	@Override
-	public String getTitulo() {
-		return titulo;
-	}
-
-	@Override
-	public String getHorario() {
-		return horario;
+		this.titulo = titulo;
+		this.duracao = duracao;
+		this.horario = horario;
+		this.artistas = new Artista[10];
 	}
 	
 	public Artista[] getArtistas(){
-		return this.artistas;
+		Artista[] result = new Artista[nArtistas];
+		System.arraycopy(this.artistas, 0, result, 0, nArtistas);
+		return result;
 	}
 	
-	public void addArtista(Artista a){
+	public void addArtista(Ator a){
 		if (nArtistas < artistas.length) {
 			this.artistas[nArtistas++] = a;
 		}

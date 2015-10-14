@@ -1,4 +1,5 @@
 package atracoes;
+import java.util.Arrays;
 
 public class Festival extends AtracaoAbstrata{
 	
@@ -21,20 +22,26 @@ public class Festival extends AtracaoAbstrata{
 	public String getTitulo() {
 		String titulo = "Festival das bandas com ";
 		for(int i = 0; i < this.nBandas; i++){
-			Musico[] integrantes = this.bandas[i].getIntegrantes();
-			for(int j = 0; j < this.bandas[i].getNumIntegrantes(); j++){
-				titulo += integrantes[j].getNome()+",";
-			}
+			titulo += this.bandas[i].getNome()+", ";
 		}
 		return titulo;
 	}
 	
 	public Artista[] getArtistas(){
-		Artista[] artistas = new Artista[50];
+		int numIntegrantes = 0;
+		for(int i = 0; i < this.nBandas; i++){
+			numIntegrantes += this.bandas[i].getNumIntegrantes();
+		}
+		
+		Artista[] artistas = new Artista[numIntegrantes];
+		int c = 0;
 		for(int i = 0; i < this.nBandas; i++){
 			Musico[] integrantes = this.bandas[i].getIntegrantes();
 			for(int j = 0; j < this.bandas[i].getNumIntegrantes(); j++){
-				artistas[j] = integrantes[j];
+				if(!Arrays.asList(artistas).contains(integrantes[j])){
+					artistas[c] = integrantes[j];
+					c++;
+				}
 			}
 		}
 		return artistas;
@@ -43,6 +50,13 @@ public class Festival extends AtracaoAbstrata{
 	public void addBanda(Banda b){
 		if (nBandas < this.bandas.length) {
 			this.bandas[nBandas++] = b;
+		}
+	}
+	
+	public void artistasToString(){
+		Artista[] artistas = this.getArtistas();
+		for(int i=0; i < artistas.length; i++){
+			System.out.println(artistas[i].getNome());
 		}
 	}
 	
