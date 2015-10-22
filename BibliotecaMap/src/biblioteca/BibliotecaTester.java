@@ -21,9 +21,9 @@ public class BibliotecaTester {
 		biblioteca.registrarLivro(l2);
 		biblioteca.registrarLivro(l3);
 		
-		//biblioteca.locarLivro(l1, usr1);
-		//biblioteca.locarLivro(l2, usr1);
-		//biblioteca.locarLivro(l3, usr2);
+		biblioteca.locarLivro(l1, usr1);
+		biblioteca.locarLivro(l2, usr1);
+		biblioteca.locarLivro(l3, usr2);
 		
 		System.out.println("Testando getLivrosClassificadosPorTipo()...");
 		Map<String, Set<Livro>> porTipo = biblioteca.getLivrosClassificadosPorTipo();
@@ -45,10 +45,10 @@ public class BibliotecaTester {
 		anos.add(1979);
 		anos.add(1980);
 		Map<Integer, Set<Livro>> porAno = biblioteca.getLivrosClassificadosPorAno(anos);
-		if(porTipo.get(1979).size() != 1){
+		if(porAno.get(1979).size() != 1){
 			System.out.println("Numero errado de livros de 1979");
 		}
-		if(porTipo.get(1980).size() != 1){
+		if(porAno.get(1980).size() != 1){
 			System.out.println("Numero errado de livros de 1980");
 		}
 		

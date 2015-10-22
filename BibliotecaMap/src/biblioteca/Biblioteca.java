@@ -59,17 +59,14 @@ public class Biblioteca {
 		Map<String,Set<Livro>> livros = new HashMap<String, Set<Livro>>();
 		
 		for(Livro l : this.setLivros){    
-			l.getTipo();
-			
 			if(livros.containsKey(l.getTipo())){
 				livros.get(l.getTipo()).add(l);
 			}else{
 				Set<Livro> livrosSet = new HashSet<Livro>();
 				livrosSet.add(l);
-				livros.put(l.getTipo(), new HashSet());
+				livros.put(l.getTipo(), livrosSet);
 			}
 		}
-		System.out.println("Size: "+livros.size());
 		return livros;
 	}
 	
@@ -79,8 +76,12 @@ public class Biblioteca {
 	 */
 	public Set<Usuario> getUsuariosComLivroEmAtraso(){
 		Set<Usuario> usuarios = new HashSet<Usuario>();
+		for(Locacao l : this.lstLocacoes){
+			if(l.getDiasDeAtraso() > 0){
+				usuarios.add(l.getUser());
+			}
+		}
 		return usuarios;
-		
 	}
 	
 	/** Retorna um dicion�rio com a classifica��o dos livros desta biblioteca nos seus
@@ -93,13 +94,15 @@ public class Biblioteca {
 	public Map<Integer,Set<Livro>> getLivrosClassificadosPorAno(Set<Integer> anos){
 		Map<Integer,Set<Livro>> livros = new HashMap<Integer, Set<Livro>>();
 	
-		for(Livro l : this.setLivros){ 
+		for(Livro l : this.setLivros){
 			if(anos.contains(l.getAno())){
-				livros.get(l.getAno()).add(l);
-			}else{
-				Set<Livro> livrosSet = new HashSet<Livro>();
-				livrosSet.add(l);
-				livros.put(l.getAno(), new HashSet());
+				if(livros.containsKey(l.getAno())){
+					livros.get(l.getAno()).add(l);
+				}else{
+					Set<Livro> livrosSet = new HashSet<Livro>();
+					livrosSet.add(l);
+					livros.put(l.getAno(), livrosSet);
+				}
 			}
 		}
 		return livros;
@@ -121,11 +124,11 @@ public class Biblioteca {
 	 */
 	
 	public String getRelatorioPorTipo(){
-		String relatorio = "";
+		String relatorio = "Relatório: \n";
 		Set<String> tipos = new HashSet<String>();
 		
 		for(Livro l : this.setLivros){
-			if(!tipos.contains(l.getTipo())){
+			if(tipos.contains(l.getTipo())){
 				break;
 			}
 			tipos.add(l.getTipo());
