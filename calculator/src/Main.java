@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -5,34 +9,15 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args){
-        Calculator c = new Calculator();
-        c.calculate();
+        ClassLoader classLoader = Calculator.class.getClassLoader();
+        File classpathRoot = new File(classLoader.getResource("").getPath());
+        String path = classpathRoot.getPath();
 
-
-        /*LinkedListOfString list = new LinkedListOfString();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        System.out.println("Element: "+list.get(0));
-        //list.add(2,4);
-        //System.out.println("Element: "+list.get(2));
-        list.set(2,"3");
-        System.out.println("Element: "+list.get(1));
-        //list.remove("2");
-        System.out.println("Element: "+list.get(2));
-        */
-/*
-        Reader reader = new Reader();
-        Calculator c = new Calculator();
-        ArrayList<String> m = reader.read("/home/ricardo/workspace/calculator/src/expressoes.txt");
-        for(int i=0; i<m.size(); i++) {
-            System.out.println(m.get(i));
-            if(c.validate(m.get(i))) {
-                System.out.println("valido");
-            }else{
-                System.out.println("invalido");
-            }
-        }*/
+        String inputFile  = path+"/../../src/calculator/expressoes.txt";
+        String outputFile = path+"/../../src/calculator/resultados.txt";
+        
+        Calculator c = new Calculator(inputFile, outputFile);
+        c.validateExpression();
     }
 
 }
