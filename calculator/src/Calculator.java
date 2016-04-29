@@ -9,9 +9,8 @@ import java.util.StringJoiner;
  * Created by ricardo on 21/04/16.
  */
 public class Calculator {
-
-    Stack stack1 = new Stack();
-    Stack stack2 = new Stack();
+    Stack stack;
+    int stackSize = 0;
     HashSet<String> operators = new HashSet<String>();
     String outputFile;
     String inputFile;
@@ -24,6 +23,7 @@ public class Calculator {
     public Calculator(String inputFile, String outputFile){
         this.inputFile = inputFile;
         this.outputFile = outputFile;
+        this.stack = new Stack();
         operators.add("+");
         operators.add("-");
         operators.add("*");
@@ -69,6 +69,7 @@ public class Calculator {
             try{
                 fh.write(outputFile, expression);
                 fh.write(outputFile, "Resultado: "+result);
+                fh.write(outputFile, "Tamanho máximo da pilha:  "+this.stackSize);
             }catch(FileNotFoundException e){
                 System.out.println("FileHandler error: "+e.getMessage());
             }catch(UnsupportedEncodingException e){
@@ -129,33 +130,41 @@ public class Calculator {
         return String.valueOf(result);
     }
     
+    public void setStackSize(){
+        if(this.stack.size() > this.stackSize){
+            this.stackSize = stack.size();
+        }
+    }
+    
     /**
      * 
      * @param exp
      * @return String
      */
     public String calculateExpression(String exp){
-        Stack s = new Stack();
         String str = "";
 
         for(int i=0; i<exp.length(); i++){
             String token = String.valueOf(exp.charAt(i));
             if(token.equals(" ")){
                 if(!str.equals("")) {
-                    s.push(str);
+                    stack.push(str);
                     str = "";
+                    this.setStackSize();
                 }
             }else if(token.equals("(")){
                 continue;
             }else if(isOperand(token)){
                 str += token;
             }else if(isOperator(token)){
-                s.push(token);
+                stack.push(token);
+                this.setStackSize();
             }else if(token.equals(")")){
-                String resultado = calculate(s.pop(), s.pop(), s.pop());
-                s.push(resultado);
+                String resultado = calculate(stack.pop(), stack.pop(), stack.pop());
+                stack.push(resultado);
+                this.setStackSize();
             }
         }
-        return s.top();
+        return stack.top();
     }
 }
