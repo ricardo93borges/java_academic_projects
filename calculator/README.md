@@ -20,4 +20,16 @@ mais caracteres é retornado o resultado final.
 
 O tamanho máximo atingido pela pilha é controlado pelo metodo setStackSize() chamado sempre que a pilha é manipulada.
 
-Recebendo o resultado final o metodo validateExpression() exibe e salva em um arquivo.
+Recebendo o resultado final o metodo validateExpression() exibe e salva em um arquivo (resultados.txt).
+
+Classes:
+
+Main: Classe principal, o programa é executado a partir dela.
+
+FileHandler: Manipula arquivos (ler e escrever).
+
+LinkedListOfString: Represesnta a estrutura de dados lista encadeada de strings.
+
+Stack: Represesnta a estrutura de dados pilha utilizando a LinkedListOfString.
+
+Calculator: Valida e calcula as expressões.
